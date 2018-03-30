@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="text/html;charset=UTF-8"/>
+    <title th:text="${title}"></title>
+    <div th:replace="fragments/header :: css"></div>
+    <link rel="stylesheet" th:href="@{http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css}" />
+    <style>
+        #mapHolder {
+            flex: 1;
+        }
+        .map-controlls {
+            height: 120px;
+            background: #222;
+        }
+        .BMap_Marker > div > img {
+            width: 25px;
+            height: 25px;
+        }
+        .BMap_bubble_content > img {
+            padding: 10px;
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/sider :: sider"></div>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <h1 th:text="${title}"></h1>
+            <form class="form-inline mt-2 mt-md-0 mb-md-2" >
+                <input class="form-control mr-sm-2" name="eid" placeholder="eid" id="eid"/>
+                <input class="btn btn-outline-success my-2 my-sm-0" type="button" id="submit" value="查询"></input>
+            </form>
+            <div>
+                <div style="width:1080px;height:540px;" id="mapHolder"></div>
+            </div>
+            <div id="r-result">
+                <input type="button" onclick="add_overlay();" value="添加覆盖物"/>
+                <input type="button" onclick="remove_overlay();" value="删除覆盖物"/>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="fragments/header :: js"></div>
+<script th:src="@{http://api.map.baidu.com/api?v=2.0&amp;ak=eGgfhshrvZANxKGXHKfaGK3YBWcXOgYN&amp;}"></script>
+<script >
+
+    var map = new BMap.Map("mapHolder");
+    var point = new BMap.Point(116.404,39.915);
+    map.centerAndZoom(point,15);
+    var marker = new BMap.Marker(new BMap.Point(116.404,39.915));
+    function add_overlay(){
+        map.addOverlay(marker);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+    }
+    function remove_overlay(){
+        map.clearOverlays();
+    }
+    </script>
+</body>
+</html>

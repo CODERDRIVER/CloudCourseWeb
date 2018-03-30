@@ -31,13 +31,20 @@ public class RecordRepository {
         List<Record> resultRecords = new ArrayList<>();
         hbaseClient.getConnection();
         Table table = hbaseClient.getTableByName(TABLE_NAME);
-        
+        /**
+         * MUST_PASS_ALL (AND)
+         * MUST_PASS_ONE(OR)
+         * MUST_PASS_ALL  懒惰地评估：只要有一个过滤器不包含cell,评估就会停止，
+         * MUST_PASS_ONE 非懒惰地评估：所有过滤器总是被评估
+         * 默认是Filster.Operator.MUST_PASS_ALL
+         */
         FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL);
 
         if (record.getPlaceId() != null) {
+            RegexStringComparator regexStringComparator = record.getTime()!=null?(new RegexStringComparator(record.getPlaceId() + "##")):(new RegexStringComparator("^"+record.getPlaceId() + "##"+"[0-9]*"+"##"));
             RowFilter rowFilter = new RowFilter(
                 CompareFilter.CompareOp.EQUAL,
-                new RegexStringComparator(record.getPlaceId() + "##"));
+                regexStringComparator);
             filterList.addFilter(rowFilter);
         }
         if (record.getTime() != null) {
@@ -111,5 +118,6 @@ public class RecordRepository {
         }
         return false;
     }
+
     
 }

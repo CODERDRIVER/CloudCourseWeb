@@ -1,6 +1,8 @@
 package edu.xidian.sselab.cloudcourse.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Data
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Record {
 
     private String eid;
@@ -21,10 +25,9 @@ public class Record {
 
     private String address;
 
-    private Double longitude;
+    private Double longitude;   //经度
 
-    private Double latitude;
-    
+    private Double latitude;    //纬度
     public Record mapFrom(Result result) {
         // 1.分解行键
         String[] rowKey = Bytes.toString(result.getRow()).split("##");
@@ -42,7 +45,6 @@ public class Record {
                 case "latitude": setLatitude(Double.parseDouble(value)); break;
             }
         }
-
         return this;
     }
 

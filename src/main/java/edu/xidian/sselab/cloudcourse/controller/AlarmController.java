@@ -5,6 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @PathVaribale 获取url中的数据
+ * @RequestParam 获取请求参数的值
+ * @GetMapping组合注解，是@RequestMapping(method=RequestMethod.GET)的缩写
+ */
 @Controller
 @RequestMapping("/alarm")
 public class AlarmController {

@@ -21,14 +21,19 @@
                th:classappend="${title} == '轨迹重现' ? 'active' : ''">轨迹重现</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" 
-               th:href="@{/alarm}" 
-               th:classappend="${title} == '实时报警' ? 'active' : ''">实时报警</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link"
                th:href="@{/bmap}"
                th:classappend="${title} == '百度地图示例' ? 'active' : ''">百度地图示例</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               th:href="@{/spark}"
+               th:classappend="${title} == 'spark结果处理示例' ? 'active' : ''">spark结果处理示例</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               th:href="@{/wrong}"
+               th:classappend="${title} == '错误数据显示' ? 'active' : ''">错误数据显示</a>
         </li>
     </ul>
 </nav>
